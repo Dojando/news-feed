@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NewsItem.css';
 
 function NewsItem({ article }) {
+  const [imageUrl, setImageUrl] = useState(article.urlToImage);
+
+  const handleImageError = () => {
+    setImageUrl(null);
+  };
+
   return (
     <div className="news-item">
-      {article.urlToImage ? (
-        <img src={article.urlToImage} alt={article.title} />
-      ) : (
-        <div className="placeholder-image">article sans image</div>
-      )}
-      <h2>{article.title}</h2>
-      <p>{article.description}</p>
-      <a href={article.url} target="_blank" rel="noopener noreferrer">Accéder à l'article</a>
+      {imageUrl ? (
+        <img className='news-image' src={imageUrl} alt={article.title} onError={handleImageError} />
+      ) : null}
+      <h2 className='news-title'>{article.title}</h2>
+      <p className='news-description' dangerouslySetInnerHTML={{ __html: article.description }}></p>
+      <a className='news-link' href={article.url} target="_blank" rel="noopener noreferrer">Accéder à l'article</a>
     </div>
   );
 }
