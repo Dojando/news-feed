@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './NewsItem.css';
+import './NewsItem.scss';
 
 function NewsItem({ article }) {
   const [imageUrl, setImageUrl] = useState(article.urlToImage);
